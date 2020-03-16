@@ -1,9 +1,9 @@
 export class Store {
   readonly _dbp: Promise<IDBDatabase>;
 
-  constructor(dbName = 'keyval-store', readonly storeName = 'keyval') {
+  constructor(dbName = 'keyval-store', readonly storeName = 'keyval', version = 1) {
     this._dbp = new Promise((resolve, reject) => {
-      const openreq = indexedDB.open(dbName, 1);
+      const openreq = indexedDB.open(dbName, version);
       openreq.onerror = () => reject(openreq.error);
       openreq.onsuccess = () => resolve(openreq.result);
 
@@ -62,7 +62,7 @@ export function keys(store = getDefaultStore()): Promise<IDBValidKey[]> {
   return store._withIDBStore('readonly', store => {
     // This would be store.getAllKeys(), but it isn't supported by Edge or Safari.
     // And openKeyCursor isn't supported by Safari.
-    (store.openKeyCursor || store.openCursor).call(store).onsuccess = function() {
+    (store.openKeyCursor || store.openCursor).call(store).onsuccess = function () {
       if (!this.result) return;
       keys.push(this.result.key);
       this.result.continue()
