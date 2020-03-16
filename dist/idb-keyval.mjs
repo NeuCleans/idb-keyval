@@ -1,8 +1,8 @@
 class Store {
-    constructor(dbName = 'keyval-store', storeName = 'keyval') {
+    constructor(dbName = 'keyval-store', storeName = 'keyval', version = 1) {
         this.storeName = storeName;
         this._dbp = new Promise((resolve, reject) => {
-            const openreq = indexedDB.open(dbName, 1);
+            const openreq = indexedDB.open(dbName, version);
             openreq.onerror = () => reject(openreq.error);
             openreq.onsuccess = () => resolve(openreq.result);
             // First time setup: create an empty object store

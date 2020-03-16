@@ -6,7 +6,7 @@
     "module": "./dist/idb-keyval.mjs",
     "types": "./dist/idb-keyval.d.ts",
     "scripts": {
-        "build": "del dist && rollup -c && npm run compress-iife && npm run create-compat && npm run create-cjs-compat && npm run compress-amd",
+        "build": "rm -rf dist && rollup -c && npm run compress-iife && npm run create-compat && npm run create-cjs-compat && npm run compress-amd",
         "compress-iife": "uglifyjs --compress --mangle -o dist/idb-keyval-iife.min.js dist/idb-keyval-iife.js",
         "create-compat": "babel dist/idb-keyval-iife.js | uglifyjs --compress --mangle > dist/idb-keyval-iife-compat.min.js",
         "create-cjs-compat": "babel dist/idb-keyval-cjs.js | uglifyjs --compress --mangle > dist/idb-keyval-cjs-compat.min.js",
