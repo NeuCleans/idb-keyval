@@ -2,7 +2,7 @@ var idbKeyval = (function (exports) {
 'use strict';
 
 class Store {
-    constructor(dbName = 'keyval-store', storeName = 'keyval', version = 1) {
+    constructor(dbName = 'keyval-store', storeName = 'keyval', version) {
         this.storeName = storeName;
         this._dbp = new Promise((resolve, reject) => {
             const openreq = indexedDB.open(dbName, version);
